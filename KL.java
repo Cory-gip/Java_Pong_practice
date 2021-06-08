@@ -1,6 +1,7 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+//The Key Listener is what will be used to take in user inputs.
 public class KL implements KeyListener {
 
     private boolean keyPressed[] = new boolean[128];

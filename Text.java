@@ -1,5 +1,7 @@
 import java.awt.*;
 
+//This class will handle the dimensions and location of the text which will be used
+//to display the scores.
 public class Text {
     public String text;
     public Font font;

@@ -1,3 +1,5 @@
+//This class will handle all of the ball's functionality, keeping track of its velocity and location relative to
+//the paddles, and updating the score accordingly.
 public class Ball {
     public Rect rect;
     public Rect leftPaddle, rightPaddle;
@@ -14,6 +16,7 @@ public class Ball {
         this.rightScoreText = rightScoreText;
     }
 
+    //This method calculates the angle at which the ball will bounce off of the paddle.
     public double calculateNewVelocityAngle(Rect paddle) {
         double relativeIntersectY = (paddle.y + (paddle.height / 2.0) - (this.rect.y + (this.rect.height / 2.0)));
         double normalIntersectY = relativeIntersectY / (paddle.height / 2.0);
@@ -22,6 +25,11 @@ public class Ball {
         return Math.toRadians(theta);
     }
 
+    //First, this method will be checking whether the ball is moving left or right.
+    //Then, it will check whether the ball is in contact with the paddle corresponding
+    //to its direction of travel. If it is hitting a paddle, the new velocity and direction
+    //will be assigned. If the ball is not hitting a paddle, this method will check whether the ball
+    //has passed the corresponding paddle. If so, the opposing side's score will be incremented.
     public void update(double dt) {
         if (vx < 0) {
             if (this.rect.x <= this.leftPaddle.x + this.leftPaddle.width
@@ -46,11 +54,13 @@ public class Ball {
                 rightScoreText.text = "" + rightScore;
             }
         } else if (vx > 0) {
-            if (this.rect.x + this.rect.width >= this.rightPaddle.x && this.rect.x <= this.rightPaddle.x + this.rightPaddle.width && this.rect.y >= this.rightPaddle.y && this.rect.y <= this.rightPaddle.y + this.rightPaddle.height) {
+            if (this.rect.x + this.rect.width >= this.rightPaddle.x &&
+                    this.rect.x <= this.rightPaddle.x + this.rightPaddle.width &&
+                    this.rect.y >= this.rightPaddle.y &&
+                    this.rect.y <= this.rightPaddle.y + this.rightPaddle.height) {
                 double theta = calculateNewVelocityAngle(rightPaddle);
                 double newVx = Math.abs(Math.cos(theta)) * Constants.BALL_SPEED;
                 double newVy = (-Math.sin(theta)) * Constants.BALL_SPEED;
-
                 double oldSign = Math.signum(vx);
                 this.vx = newVx * (-1.0 * oldSign);
                 this.vy = newVy;

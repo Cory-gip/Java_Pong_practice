@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
+//The Rectangle class will be used to draw the paddles and the ball, taking as input the dimensions and color of each.
 public class Rect {
     public double x, y, width, height;
     public Color color;
